@@ -1,0 +1,36 @@
+// MANAGED BY SALT, DON'T EDIT MANUALLY
+
+options {
+	directory "/var/cache/bind";
+
+	forwarders {
+		9.9.9.9;
+	};
+
+	//========================================================================
+	// If BIND logs error messages about the root key being expired,
+	// you will need to update your keys.  See https://www.isc.org/bind-keys
+	//========================================================================
+	dnssec-enable yes;
+	dnssec-validation auto;
+
+	auth-nxdomain no;    # conform to RFC1035
+	listen-on { any; };
+	listen-on-v6 { any; };
+
+	recursion yes;
+	allow-recursion { "internal"; };
+	allow-query     { "internal"; };
+
+	version "Informo Name Server";
+	hostname "Unknown";
+
+};
+
+acl "internal" {
+	{
+		127.0.0.1;
+		::1;
+		{{ vrack_net }};
+	};
+};

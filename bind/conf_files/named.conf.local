@@ -1,0 +1,15 @@
+// MANAGED BY SALT, DON'T EDIT MANUALLY
+
+zone "{{ int_zone }}" {
+        type master;
+        notify yes;
+        allow-transfer { "internal"; };
+        file "/var/lib/bind/{{ int_zone }}";
+};
+
+zone "{{ rev_zone }}.in-addr.arpa" {
+        type master;
+        notify yes;
+        allow-transfer { "internal"; };
+        file "/var/lib/bind/{{ rev_zone }}.in-addr.arpa";
+};

@@ -1,0 +1,36 @@
+# MANAGED BY SALT, DON'T EDIT MANUALLY
+
+version: 1
+
+formatters:
+  precise:
+   format: '%(asctime)s - %(name)s - %(lineno)d - %(levelname)s - %(request)s- %(message)s'
+
+filters:
+  context:
+    (): synapse.util.logcontext.LoggingContextFilter
+    request: ""
+
+handlers:
+  file:
+    class: logging.handlers.RotatingFileHandler
+    formatter: precise
+    filename: /var/log/matrix-synapse/homeserver.log
+    maxBytes: 104857600
+    backupCount: 10
+    filters: [context]
+  console:
+    class: logging.StreamHandler
+    formatter: precise
+    level: WARN
+
+loggers:
+    synapse:
+        level: WARN
+
+    synapse.storage.SQL:
+        level: WARN
+
+root:
+    level: WARN
+    handlers: [file, console]

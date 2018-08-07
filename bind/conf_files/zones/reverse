@@ -1,0 +1,20 @@
+; MANAGED BY SALT, DON'T EDIT MANUALLY
+
+$ORIGIN .
+$TTL 345600     ; 4 days
+
+{{ rev_zone }}.in-addr.arpa  IN SOA  {{ fqdn }}. {{ soa.get("admin") }}. (
+				{{ soa.get("serial") }} ; serial
+				{{ soa.get("refresh") }} ; refresh
+				{{ soa.get("retry") }} ; retry
+				{{ soa.get("expire") }} ; expire
+				{{ soa.get("minimum") }} ; minimum
+				)
+			NS	{{ fqdn }}.
+$ORIGIN {{ rev_zone }}.in-addr.arpa.
+$TTL {{ ttl }}
+{%- for record in records %}
+{%- if record.get("type") == "A" %}
+{{ record.get("target").split('.')[-1] }} PTR {{ record.get("subdomain") }}.{{ int_zone }}.
+{%- endif %}
+{%- endfor %}

@@ -1,0 +1,18 @@
+; MANAGED BY SALT, DON'T EDIT MANUALLY
+
+$ORIGIN .
+$TTL 345600	; 4 days
+
+{{ int_zone }}	IN SOA	{{ int_zone }}. {{ soa.get("admin") }}. (
+				{{ soa.get("serial") }} ; serial
+				{{ soa.get("refresh") }} ; refresh
+				{{ soa.get("retry") }} ; retry
+				{{ soa.get("expire") }} ; expire
+				{{ soa.get("minimum") }} ; minimum
+				)
+			NS	{{ fqdn }}.
+$ORIGIN {{ int_zone }}.
+$TTL {{ ttl }}
+{%- for record in records %}
+{{ record.get("subdomain") }} {{ record.get("type") }} {{ record.get("target") }}
+{%- endfor %}
