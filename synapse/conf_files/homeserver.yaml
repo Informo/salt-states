@@ -1,6 +1,6 @@
 # vim:ft=yaml
 
-# MANAGED BY SALT, DON'T EDIT MANUALLY
+# MANAGED BY SALTSTACK, DON'T EDIT MANUALLY
 
 # PEM encoded X509 certificate for TLS.
 # You can replace the self-signed certificate that synapse
