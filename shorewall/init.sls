@@ -8,7 +8,6 @@ shorewall:
       - enable: True
       - watch:
         - file: /etc/default/shorewall
-        - file: /etc/shorewall/conntrack
         - file: /etc/shorewall/masq
         - file: /etc/shorewall/interfaces
         - file: /etc/shorewall/policy
@@ -24,7 +23,7 @@ shorewall:
     - repl: "startup=1"
     - prepend_if_not_found: True
 
-{% for file in [ 'shorewall.conf', 'conntrack', 'masq', 'policy', 'rules',
+{% for file in [ 'shorewall.conf', 'masq', 'policy', 'rules',
 'zones', 'params' ] %}
 /etc/shorewall/{{ file }}:
   file.managed:
