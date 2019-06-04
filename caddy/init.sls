@@ -89,6 +89,7 @@ caddy_cap_net:
     - context:
       public_ip: {{ public_ip }}
       public_fqdn: {{ public_fqdn }}
+      synapse_vrack_ip: {{ synapse_vrack_ip }}
     - require:
       - file: /etc/caddy/caddy.conf.d
 {%- endif %}
