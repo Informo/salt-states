@@ -78,7 +78,7 @@ caddy_cap_net:
     - require:
       - file: /etc/caddy
 
-{%- if 'synapse' in pillar.get('roles', []) %}
+{%- if 'synapse' in pillar.get('roles', []) or 'ha' in pillar.get('roles', []) %}
 /etc/caddy/caddy.conf.d/synapse.conf:
   file.managed:
     - source: salt://caddy/conf_files/synapse.conf
