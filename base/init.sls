@@ -3,7 +3,7 @@ core:
 
 ubuntu:
   user.absent:
-    purge: True
+    - purge: True
 
 {%- if 'synapse' in pillar.get('roles', []) %}
 synapse_user:
