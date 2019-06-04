@@ -47,7 +47,7 @@ include:
 
 caddy_cap_net:
   cmd.run:
-    - name: setcap cap_net_bind_service=+ep /usr/local/bin/caddy
+    - name: setcap cap_net_bind_service=+ep /usr/local/bin/caddy-{{ caddy_tag }}
     - require:
       - file: /usr/local/bin/caddy
 
