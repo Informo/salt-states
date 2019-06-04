@@ -5,7 +5,7 @@ include:
 {%- set public_fqdn = salt['pillar.get']('public:fqdn', '') %}
 {%- set caddy_tag = salt['pillar.get']('caddy:tag', '') %}
 {%- set caddy_checksum = salt['pillar.get']('caddy:tar_sha512sum', '') %}
-{%- set synapse_vrack_ip = salt['pillar.get']('synapse_vrack_ip', '127.0.0.1') %}
+{%- set synapse_vrack_ip = salt['pillar.get']('caddy:synapse_vrack_ip', '127.0.0.1') %}
 
 /home/http/caddy:
   file.directory:
