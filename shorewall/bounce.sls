@@ -13,3 +13,4 @@ include:
     - template: jinja
     - context:
       public_ip: {{ public_ip }}
+      ssh_port: {{ ssh_port }}
