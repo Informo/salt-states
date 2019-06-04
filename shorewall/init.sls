@@ -77,6 +77,7 @@ shorewall:
     - template: jinja
     - context:
       public_ip: {{ public_ip }}
+{%- endif %}
 
 restart_minion_after_firewall_update:
   cmd.run:
