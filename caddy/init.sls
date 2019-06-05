@@ -137,7 +137,10 @@ caddy:
     - source: salt://caddy/well-known/{{ file }}
     - user: http
     - group: http
-    - mode: 0755
+    - mode: 0644
+    - template: jinja
+    - context:
+      public_domain: {{ public_fqdn }}
     - require:
       - file: /srv/http/static/.well-known/matrix
 {%- endfor %}
