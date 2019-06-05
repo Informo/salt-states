@@ -2,4 +2,4 @@
 
 #ACTION         SOURCE          DEST            PROTO   DEST    SOURCE          ORIGINAL        RATE            USER/   MARK    CONNLIMIT       TIME            HEADERS         SWITCH          HELPER
 #                                                       PORT    PORT(S)         DEST            LIMIT           GROUP
-ACCEPT          net             $FW:{{ public_ip }} tcp    8448    # Synapse federation
+ACCEPT          int             $FW:{{ int_ip }} tcp    8008    # Synapse proxying
