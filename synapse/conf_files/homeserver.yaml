@@ -50,41 +50,6 @@ soft_file_limit: 0
 # List of ports that Synapse should listen on, their purpose and their
 # configuration.
 listeners:
-  # Main HTTPS listener
-  # For when matrix traffic is sent directly to synapse.
-  -
-    # The port to listen for HTTPS requests on.
-    port: 8448
-
-    # Local interface to listen on.
-    # The empty string will cause synapse to listen on all interfaces.
-    bind_address: '{{ bind_address }}'
-
-    # This is a 'http' listener, allows us to specify 'resources'.
-    type: http
-
-    tls: true
-
-    # Use the X-Forwarded-For (XFF) header as the client IP and not the
-    # actual client IP.
-    x_forwarded: false
-
-    # List of HTTP resources to serve on this listener.
-    resources:
-      -
-        # List of resources to host on this listener.
-        names:
-          - client     # The client-server APIs, both v1 and v2
-          - webclient  # The bundled webclient.
-
-        # Should synapse compress HTTP responses to clients that support it?
-        # This should be disabled if running synapse behind a load balancer
-        # that can do automatic compression.
-        compress: true
-
-      - names: [federation]  # Federation APIs
-        compress: false
-
   # Unsecure HTTP listener,
   # For when matrix traffic passes through loadbalancer that unwraps TLS.
   - port: 8008
