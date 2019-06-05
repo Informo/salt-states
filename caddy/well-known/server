@@ -1,0 +1,3 @@
+{
+    "m.server": "{{ public_domain }}:443"
+}

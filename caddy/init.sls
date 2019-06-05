@@ -114,3 +114,30 @@ caddy:
       - file: /var/lib/caddy
       - file: /etc/caddy/caddy.conf
       - cmd: caddy_cap_net
+
+/srv/http:
+  file.directory:
+    - user: root
+    - group: root
+    - mode: 0755
+
+{% for dir in [ 'static', 'static/.well-known', 'static/.well-known/matrix' ] %}
+/srv/http/{{ dir }}:
+  file.directory:
+    - user: http
+    - group: http
+    - mode: 0755
+    - require:
+      - user: http
+{%- endfor %}
+
+{% for file in [ 'server', 'client' ] %}
+/srv/http/static/.well-known/matrix/{{ file }}:
+  file.managed:
+    - source: salt://caddy/well-known/{{ file }}
+    - user: http
+    - group: http
+    - mode: 0755
+    - require:
+      - file: /srv/http/static/.well-known/matrix
+{%- endfor %}
