@@ -10,7 +10,7 @@ include:
 {%- set bind_address_fallback = salt['pillar.get']('public:ip', '127.0.0.1') %}
 {%- set addresses = salt['pillar.get']('vrack_addresses', {}) %}
 {%- set host = salt['grains.get']('host', '') %}
-{%- set bind_address = addressess.get(host, {}).get('address', bind_address_fallback) %}
+{%- set bind_address = addresses.get(host, {}).get('address', bind_address_fallback) %}
 {%- set pepper = salt['pillar.get']('synapse:pepper', '') %}
 
 python-psycopg2:
