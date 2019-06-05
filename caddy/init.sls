@@ -7,7 +7,7 @@ include:
 {%- set caddy_checksum = salt['pillar.get']('caddy:tar_sha512sum', '') %}
 {%- set synapse_host = salt['pillar.get']('caddy:synapse', '') %}
 {%- set addresses = salt['pillar.get']('vrack_addresses', {}) %}
-{%- set synapse_ip = addresses.get(synapse_host, '127.0.0.1') %}
+{%- set synapse_ip = addresses.get(synapse_host, {}).get('address', '127.0.0.1') %}
 
 /home/http/caddy:
   file.directory:
