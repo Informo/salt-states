@@ -1,9 +1,9 @@
 matrix.repo:
   pkgrepo.managed:
     - humanname: matrix.org
-    - name: deb https://matrix.org/packages/debian xenial main
+    - name: deb https://packages.matrix.org/debian/ xenial main
     - dist: xenial
-    - keyid: C35EB17E1EAE708E6603A9B3AD0592FE47F0DF61
+    - keyid: AAF9AE843A7584B5A3E4CD2BCF45A512DE2DA058
     - keyserver: keys.gnupg.net
     - refresh_db: true
     - require:
