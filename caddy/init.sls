@@ -5,7 +5,9 @@ include:
 {%- set public_fqdn = salt['pillar.get']('public:fqdn', '') %}
 {%- set caddy_tag = salt['pillar.get']('caddy:tag', '') %}
 {%- set caddy_checksum = salt['pillar.get']('caddy:tar_sha512sum', '') %}
-{%- set synapse_vrack_ip = salt['pillar.get']('caddy:synapse_vrack_ip', '127.0.0.1') %}
+{%- set synapse_host = salt['pillar.get']('caddy:synapse', '') %}
+{%- set addresses = salt['pillar.get']('vrack_addresses', {}) %}
+{%- set synapse_ip = addresses.get(synapse_host, '') %}
 
 /home/http/caddy:
   file.directory:
@@ -89,7 +91,7 @@ caddy_cap_net:
     - context:
       public_ip: {{ public_ip }}
       public_fqdn: {{ public_fqdn }}
-      synapse_vrack_ip: {{ synapse_vrack_ip }}
+      synapse_ip: {{ synapse_ip }}
     - require:
       - file: /etc/caddy/caddy.conf.d
 {%- endif %}
