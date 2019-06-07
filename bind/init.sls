@@ -1,5 +1,5 @@
-{%- set vrack_net = salt['pillar.get']('int_network:ip_range', '127.0.0.1/24') %}
-{%- set netip = vrack_net.split('/')[0].split('.') %}
+{%- set int_ip_range = salt['pillar.get']('int_network:ip_range', '127.0.0.1/24') %}
+{%- set netip = int_ip_range.split('/')[0].split('.') %}
 {%- set rev_zone_list = [] %}
 {%- for byte in netip[0:3]|reverse %}
   {%- set tmp = rev_zone_list.append(byte) %}
@@ -8,7 +8,7 @@
 {%- set int_zone = salt['pillar.get']('int_network:dns_zone', '') %}
 {%- set soa = salt['pillar.get']('bind:soa', {}) %}
 {%- set ttl = salt['pillar.get']('bind:ttl', 60) %}
-{%- set records = salt['pillar.get']('bind:records', []) %}
+{%- set addresses = salt['pillar.get']('int_network:addresses', []) %}
 {%- set fqdn = salt['grains.get']('fqdn', '') %}
 
 bind9:
@@ -43,7 +43,7 @@ bind9:
     - group: bind
     - template: jinja
     - context:
-      vrack_net: {{ vrack_net }}
+      vrack_net: {{ int_ip_range }}
     - require:
       - pkg: bind9
 
@@ -58,7 +58,7 @@ bind9:
       int_zone: {{ int_zone }}
       soa: {{ soa }}
       ttl: {{ ttl }}
-      records: {{ records }}
+      addresses: {{ addresses }}
       fqdn: {{ fqdn }}
     - require:
       - pkg: bind9
@@ -75,7 +75,7 @@ bind9:
       int_zone: {{ int_zone }}
       soa: {{ soa }}
       ttl: {{ ttl }}
-      records: {{ records }}
+      addresses: {{ addresses }}
       fqdn: {{ fqdn }}
     - require:
       - pkg: bind9

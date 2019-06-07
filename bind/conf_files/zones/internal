@@ -13,6 +13,13 @@ $TTL 345600	; 4 days
 			NS	{{ fqdn }}.
 $ORIGIN {{ int_zone }}.
 $TTL {{ ttl }}
-{%- for record in records %}
-{{ record.get("subdomain") }} {{ record.get("type") }} {{ record.get("target") }}
+{%- for host, properties in addresses.iteritems() %}
+	{%- set target = properties.get('address') %}
+	{%- set type = properties.get('dns_record_type', 'A') %}
+	{%- if properties.get('node', False) == True %}
+		{%- set subdomain = host + '.nodes' %}
+	{%- else %}
+		{%- set subdomain = host %}
+	{%- endif %}
+{{ subdomain }} {{ type }} {{ target }}
 {%- endfor %}
