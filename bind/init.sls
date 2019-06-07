@@ -1,11 +1,11 @@
-{%- set vrack_net = salt['pillar.get']('vrack', '127.0.0.1/24') %}
+{%- set vrack_net = salt['pillar.get']('int_network:ip_range', '127.0.0.1/24') %}
 {%- set netip = vrack_net.split('/')[0].split('.') %}
 {%- set rev_zone_list = [] %}
 {%- for byte in netip[0:3]|reverse %}
   {%- set tmp = rev_zone_list.append(byte) %}
 {%- endfor %}
 {%- set rev_zone = rev_zone_list|join('.') %}
-{%- set int_zone = salt['pillar.get']('int_zone', '') %}
+{%- set int_zone = salt['pillar.get']('int_network:dns_zone', '') %}
 {%- set soa = salt['pillar.get']('bind:soa', {}) %}
 {%- set ttl = salt['pillar.get']('bind:ttl', 60) %}
 {%- set records = salt['pillar.get']('bind:records', []) %}

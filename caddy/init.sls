@@ -1,12 +1,12 @@
 include:
   - base
 
-{%- set public_ip = salt['pillar.get']('public:ip', '127.0.0.1') %}
-{%- set public_fqdn = salt['pillar.get']('public:fqdn', '') %}
+{%- set public_ip = salt['pillar.get']('network:public_ip', '127.0.0.1') %}
+{%- set domain = salt['pillar.get']('caddy:domain', '') %}
 {%- set caddy_tag = salt['pillar.get']('caddy:tag', '') %}
 {%- set caddy_checksum = salt['pillar.get']('caddy:tar_sha512sum', '') %}
-{%- set synapse_host = salt['pillar.get']('caddy:synapse', '') %}
-{%- set addresses = salt['pillar.get']('vrack_addresses', {}) %}
+{%- set synapse_host = salt['pillar.get']('caddy:synapse_host', '') %}
+{%- set addresses = salt['pillar.get']('int_network:addresses', {}) %}
 {%- set synapse_ip = addresses.get(synapse_host, {}).get('address', '127.0.0.1') %}
 
 /home/http/caddy:
@@ -140,7 +140,7 @@ caddy:
     - mode: 0644
     - template: jinja
     - context:
-      public_domain: {{ public_fqdn }}
+      : {{ public_fqdn }}
     - require:
       - file: /srv/http/static/.well-known/matrix
 {%- endfor %}

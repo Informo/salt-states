@@ -1,6 +1,6 @@
 {%- set public = salt['pillar.get']('network:interfaces:public', 'ens3') %}
 {%- set vrack = salt['pillar.get']('network:interfaces:vrack', 'ens6') %}
-{%- set public_ip = salt['pillar.get']('public:ip', '127.0.0.1') %}
+{%- set public_ip = salt['pillar.get']('network:public_ip', '127.0.0.1') %}
 
 shorewall:
     pkg.installed:
@@ -77,6 +77,18 @@ shorewall:
     - template: jinja
     - context:
       public_ip: {{ public_ip }}
+{%- endif %}
+
+{%- if 'synapse' in pillar.get('roles', []) %}
+/etc/shorewall/rules.d/synapse.rules:
+  file.managed:
+    - source: salt://shorewall/files/rules.d/synapse.rules
+    - mode: 440
+    - user: root
+    - group: root
+    - template: jinja
+    - context:
+      int_ip: {{ int_ip }}
 {%- endif %}
 
 restart_minion_after_firewall_update:

@@ -7,8 +7,8 @@ include:
 {%- set server_name = salt['pillar.get']('synapse:server_name', salt['grains.get']('fqdn', '')) %}
 {%- set registration_enabled = salt['pillar.get']('synapse:registration_enabled', 'False') %}
 {%- set guest_registration = salt['pillar.get']('synapse:guest_registration', 'False') %}
-{%- set bind_address_fallback = salt['pillar.get']('public:ip', '127.0.0.1') %}
-{%- set addresses = salt['pillar.get']('vrack_addresses', {}) %}
+{%- set bind_address_fallback = salt['pillar.get']('network:public_ip', '127.0.0.1') %}
+{%- set addresses = salt['pillar.get']('int_network:addresses', {}) %}
 {%- set host = salt['grains.get']('host', '') %}
 {%- set bind_address = addresses.get(host, {}).get('address', bind_address_fallback) %}
 {%- set pepper = salt['pillar.get']('synapse:pepper', '') %}
