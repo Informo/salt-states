@@ -31,6 +31,6 @@ acl "internal" {
 	{
 		127.0.0.1;
 		::1;
-		{{ vrack_net }};
+		{{ int_net }};
 	};
 };

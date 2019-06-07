@@ -43,7 +43,7 @@ bind9:
     - group: bind
     - template: jinja
     - context:
-      vrack_net: {{ int_ip_range }}
+      int_net: {{ int_ip_range }}
     - require:
       - pkg: bind9
 

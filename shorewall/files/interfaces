@@ -4,4 +4,4 @@
 ###############################################################################
 #ZONE	INTERFACE     OPTIONS
 net   {{ public }}  logmartians,nosmurfs,sourceroute=0,tcpflags
-int   {{ vrack }}   logmartians,nosmurfs,sourceroute=0,tcpflags
+int   {{ int }}   logmartians,nosmurfs,sourceroute=0,tcpflags

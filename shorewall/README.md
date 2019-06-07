@@ -1,12 +1,12 @@
 # shorewall
 
-This state installs and configure the [shorewall](http://www.shorewall.net/) firewall configuration tool. So far, only IPv4 traffic is supported (we're working towards supporting IPv6 though). On all hosts, it defines two interfaces in shorewall's configuration, which match the interface to the infrastructure's private network (vrack in our case) and the public interface. By default it only allows ICMP incoming connections on the public interface, and SSH incoming connections on the private one. It requires both interfaces to be mentioned in the hosts' pillars as such:
+This state installs and configure the [shorewall](http://www.shorewall.net/) firewall configuration tool. So far, only IPv4 traffic is supported (we're working towards supporting IPv6 though). On all hosts, it defines two interfaces in shorewall's configuration, which match the interface to the infrastructure's private network (int in our case) and the public interface. By default it only allows ICMP incoming connections on the public interface, and SSH incoming connections on the private one. It requires both interfaces to be mentioned in the hosts' pillars as such:
 
 ```yaml
 network:
   interfaces:
     public: ens3
-    vrack: ens6
+    int: ens6
 ```
 
 Two more specific states are also present and must be included in a host's `roles` pillar to be executed.

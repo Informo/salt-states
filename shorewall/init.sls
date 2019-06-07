@@ -1,5 +1,5 @@
 {%- set public = salt['pillar.get']('network:interfaces:public', 'ens3') %}
-{%- set vrack = salt['pillar.get']('network:interfaces:vrack', 'ens6') %}
+{%- set int = salt['pillar.get']('network:interfaces:int', 'ens6') %}
 
 shorewall:
     pkg.installed:
@@ -44,7 +44,7 @@ shorewall:
     - template: jinja
     - context:
       public: {{ public }}
-      vrack: {{ vrack }}
+      int: {{ int }}
     - require:
       - pkg: shorewall
 
