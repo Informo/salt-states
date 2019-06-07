@@ -14,7 +14,7 @@ $TTL 345600     ; 4 days
 $ORIGIN {{ rev_zone }}.in-addr.arpa.
 $TTL {{ ttl }}
 {%- for host, properties in addresses.iteritems() %}
-	{%- if properties.get('dns_record_type', 'A') != 'A' %}
+	{%- if properties.get('dns_record_type', 'A') == 'A' %}
 		{%- set target = properties.get('address') %}
 		{%- if properties.get('node', False) == True %}
 			{%- set subdomain = host + '.nodes' %}
