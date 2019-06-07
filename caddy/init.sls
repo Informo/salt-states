@@ -80,7 +80,6 @@ caddy_cap_net:
     - require:
       - file: /etc/caddy
 
-{%- if 'synapse' in pillar.get('roles', []) or 'ha' in pillar.get('roles', []) %}
 /etc/caddy/caddy.conf.d/synapse.conf:
   file.managed:
     - source: salt://caddy/conf_files/synapse.conf
@@ -90,11 +89,10 @@ caddy_cap_net:
     - template: jinja
     - context:
       public_ip: {{ public_ip }}
-      public_fqdn: {{ public_fqdn }}
+      public_fqdn: {{ domain }}
       synapse_ip: {{ synapse_ip }}
     - require:
       - file: /etc/caddy/caddy.conf.d
-{%- endif %}
 
 /usr/lib/systemd/system/caddy.service:
   file.managed:
@@ -140,7 +138,7 @@ caddy:
     - mode: 0644
     - template: jinja
     - context:
-      : {{ public_fqdn }}
+      public_domain: {{ domain }}
     - require:
       - file: /srv/http/static/.well-known/matrix
 {%- endfor %}

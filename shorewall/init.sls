@@ -1,6 +1,5 @@
 {%- set public = salt['pillar.get']('network:interfaces:public', 'ens3') %}
 {%- set vrack = salt['pillar.get']('network:interfaces:vrack', 'ens6') %}
-{%- set public_ip = salt['pillar.get']('network:public_ip', '127.0.0.1') %}
 
 shorewall:
     pkg.installed:
@@ -68,6 +67,7 @@ shorewall:
       - file: /etc/shorewall/rules.d
 
 {%- if 'caddy' in pillar.get('roles', []) %}
+{%- set public_ip = salt['pillar.get']('network:public_ip', '127.0.0.1') %}
 /etc/shorewall/rules.d/caddy.rules:
   file.managed:
     - source: salt://shorewall/files/rules.d/caddy.rules
@@ -80,6 +80,9 @@ shorewall:
 {%- endif %}
 
 {%- if 'synapse' in pillar.get('roles', []) %}
+{%- set synapse_host = salt['pillar.get']('caddy:synapse_host', '') %}
+{%- set addresses = salt['pillar.get']('int_network:addresses', {}) %}
+{%- set int_ip = addresses.get(synapse_host, {}).get('address', '127.0.0.1') %}
 /etc/shorewall/rules.d/synapse.rules:
   file.managed:
     - source: salt://shorewall/files/rules.d/synapse.rules
