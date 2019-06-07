@@ -80,7 +80,7 @@ shorewall:
 {%- endif %}
 
 {%- if 'synapse' in pillar.get('roles', []) %}
-{%- set synapse_host = salt['pillar.get']('caddy:synapse_host', '') %}
+{%- set synapse_host = salt['grains.get']('host', '') %}
 {%- set addresses = salt['pillar.get']('int_network:addresses', {}) %}
 {%- set int_ip = addresses.get(synapse_host, {}).get('address', '127.0.0.1') %}
 /etc/shorewall/rules.d/synapse.rules:
