@@ -21,6 +21,6 @@ $TTL {{ ttl }}
 		{%- else %}
 			{%- set subdomain = host %}
 		{%- endif %}
-{{ target.split('.')[-1] }} PTR {{ subdomain }}.{{ int_zone }}
+{{ target.split('.')[-1] }} PTR {{ subdomain }}.{{ int_zone }}.
 	{%- endif %}
 {%- endfor %}
